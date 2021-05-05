@@ -1,1 +1,4 @@
 boto3 ~= 1.17
+tox
+pytest
+mock
