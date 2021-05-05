@@ -5,6 +5,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing...'
+                sh 'pip3 install --user tox'
                 sh 'tox'
             }
         }
