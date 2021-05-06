@@ -11,7 +11,8 @@ pipeline {
         stage('Package'){
             steps {
                 echo 'Packaging...'
-                sh 'mkdir -p ./build'
+                sh 'rm -rf ./build'
+                sh 'mkdir ./build'
                 sh 'zip -j ./build/deployment.zip ./lambdas/lambda_function.py'
             }
         }
