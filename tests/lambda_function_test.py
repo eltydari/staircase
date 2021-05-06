@@ -1,6 +1,6 @@
 from unittest import TestCase
 from unittest.mock import patch, MagicMock
-import lambdas.lambda_function as module
+import src.lambda_function as module
 
 class ModuleTests(TestCase):
 
