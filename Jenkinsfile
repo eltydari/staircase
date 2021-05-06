@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh '/usr/local/bin/aws lambda update-function-code --function-name getHello --image-uri "https://362764577362.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-hello:latest"'
+                sh '/usr/local/bin/aws lambda update-function-code --function-name getHello --image-uri 362764577362.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-hello:latest'
             }
         }
     }
