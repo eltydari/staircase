@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Packaging...'
                 sh 'mkdir -p ./build'
-                sh 'zip ./build/deployment.zip ./lambdas/lambda_function.py'
+                sh 'pushd lambdas; zip ./build/deployment.zip ./lambda_function.py; popd'
             }
         }
         stage('Deploy') {
