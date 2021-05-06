@@ -17,13 +17,17 @@ pipeline {
         stage('Package'){
             steps {
                 echo 'Packaging...'
-                docker.build('lambda-docker-hello')
+                script {
+                    docker.build('lambda-docker-hello')
+                }
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                docker.image('lambda-docker-hello').push()
+                script {
+                    docker.image('lambda-docker-hello').push()
+                }
             }
         }
     }
