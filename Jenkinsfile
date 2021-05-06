@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 script {
-                    docker.withRegistry('https://362764577362.dkr.ecr.us-east-2.amazonaws.com/default', 'jenkins-ecr-default') {
+                    docker.withRegistry('https://362764577362.dkr.ecr.us-east-2.amazonaws.com/default', 'gcr:jenkins-ecr-default') {
                         docker.image('lambda-docker-hello').push()
                     }
                 }
