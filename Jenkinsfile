@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    parameters {
+        credentials(
+
+        )
+    }
+
     stages {
         stage('Test') {
             steps {
@@ -8,27 +14,31 @@ pipeline {
                 sh '/usr/local/bin/tox'
             }
         }
-        stage('Prepackage') {
-            steps {
-                sh 'rm ~/.dockercfg || true'
-                sh 'rm ~/.docker/config.json || true'
-            }
-        }
-        stage('Package'){
+        stage('Package') {
             steps {
                 echo 'Packaging...'
+                sh 'rm ~/.dockercfg || true'
+                sh 'rm ~/.docker/config.json || true'
                 script {
                     docker.build('lambda-docker-hello')
+                }
+            }
+        }
+        stage('Upload'){
+            steps {
+                echo 'Uploading to ECR...'
+                script {
+                    docker.withRegistry('https://362764577362.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-hello', 'ecr:us-east-2:jenkins-ecr-default') {
+                        docker.image('lambda-docker-hello').push()
+                    }
                 }
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                script {
-                    docker.withRegistry('https://362764577362.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-hello/', 'ecr:us-east-2:jenkins-ecr-default') {
-                        docker.image('lambda-docker-hello').push()
-                    }
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'jenkins-ecr-default', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh 'aws lambda update-function-code --function-name getHello --image-uri https://362764577362.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-hello:latest'
                 }
             }
         }
