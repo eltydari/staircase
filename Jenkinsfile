@@ -31,8 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh 'export AWS_DEFAULT_REGION=us-east-2'
-                sh '/usr/local/bin/aws lambda update-function-code --function-name getHello --image-uri 362764577362.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-hello:latest'
+                sh 'AWS_DEFAULT_REGION=us-east-2 /usr/local/bin/aws lambda update-function-code --function-name getHello --image-uri 362764577362.dkr.ecr.us-east-2.amazonaws.com/lambda-docker-hello:latest'
             }
         }
     }
