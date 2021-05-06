@@ -26,7 +26,9 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 script {
-                    docker.image('lambda-docker-hello').push()
+                    docker.withRegistry('https://362764577362.dkr.ecr.us-east-2.amazonaws.com/default') {
+                        docker.image('lambda-docker-hello').push()
+                    }
                 }
             }
         }
