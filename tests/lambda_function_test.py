@@ -7,10 +7,7 @@ class ModuleTests(TestCase):
     @patch.object(module, "log_new_invocation")
     def test_lambda_handler(self, invocation_mock):
         response = module.lambda_handler(MagicMock(), MagicMock())
-        self.assertEqual(response, {
-            'statusCode': 200,
-            'body': "helloworld"  # MUST return helloworld!
-        })
+        self.assertEqual("helloworld", response)
         self.assertEqual(1, invocation_mock.call_count)
 
     @patch("builtins.open")
