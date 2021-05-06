@@ -4,8 +4,8 @@ from datetime import datetime
 import tempfile
 import os
 
-BUCKET_LOCATION = "staircase-demo"
-INVOCATION_FILENAME = "logs/invocations.csv"
+BUCKET_LOCATION = "staircase-demo/logs"
+INVOCATION_FILENAME = "invocations.csv"
 
 
 def lambda_handler(event, context):
