@@ -40,7 +40,7 @@ def report_invocation():
             },
             Permissions = [
                 {
-                    "Principal": "arn:aws:quicksight:us-east-2:362764577362:namespace/default",
+                    "Principal": "arn:aws:quicksight:us-east-1:362764577362:namespace/default",
                     "Actions": [
                         "quicksight:DescribeDashboard",
                         "quicksight:ListDashboardVersions",
