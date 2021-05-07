@@ -23,7 +23,7 @@ def report_invocation():
     quicksight = boto3.client('quicksight')
     quicksight.create_ingestion(
         DataSetId = "8b37060b-d5ea-4950-b5a0-22e9ed3d2cd3",
-        IngestionId = datetime.utcnow().isoformat(),
+        IngestionId = datetime.utcnow().strftime("%Y%m%d-%H%M%S"),
         AwsAccountId = ACCOUNT_ID
     )
 
