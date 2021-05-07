@@ -2,10 +2,11 @@ import boto3
 from botocore.exceptions import ClientError
 from datetime import datetime
 import tempfile
+import time
 import os
 
 ACCOUNT_ID = "362764577362"
-DATASET_ID = "8b37060b-d5ea-4950-b5a0-22e9ed3d2cd3"
+DATASET_ID = "347326cb-5039-4a70-9226-60cd704f1a86"
 INVOCATION_FILENAME = "logs/invocations.csv"
 
 
@@ -51,6 +52,7 @@ def report_invocation():
         )
     except quicksight.exceptions.ResourceExistsException:
         pass  # move on if already created
+    sleep(.5)
     quicksight.create_ingestion(
         DataSetId = DATASET_ID,
         IngestionId = datetime.utcnow().strftime("%Y%m%d-%H%M%S-%f"),
