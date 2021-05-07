@@ -36,7 +36,7 @@ def report_invocation():
                             "DataSetArn": "arn:aws:quicksight:us-east-2:%s:dataset/%s" % (ACCOUNT_ID, DATASET_ID)
                         }
                     ]
-                }
+                },
                 "Permissions": [
                     {
                         "Principal": "arn:aws:quicksight:us-east-2:362764577362:namespace/default",
