@@ -5,6 +5,7 @@ import tempfile
 import os
 
 ACCOUNT_ID = "362764577362"
+DATASET_ID = "8b37060b-d5ea-4950-b5a0-22e9ed3d2cd3"
 INVOCATION_FILENAME = "logs/invocations.csv"
 
 
@@ -21,8 +22,37 @@ def log_new_invocation():
 
 def report_invocation():
     quicksight = boto3.client('quicksight')
+    try:
+        quicksight.create_dashboard(
+            AwsAccountId = ACCOUNT_ID,
+            DashboardId = "staircase-demo",
+            Name = "Staircase Demo",
+            SourceEntity = {
+                "SourceTemplate": {
+                    "Arn": "arn:aws:quicksight:us-east-2:%s:template/invokation-template" % ACCOUNT_ID,
+                    "DataSetReferences": [
+                        {
+                            "DataSetPlaceholder": "invocations",
+                            "DataSetArn": "arn:aws:quicksight:us-east-2:%s:dataset/%s" % (ACCOUNT_ID, DATASET_ID)
+                        }
+                    ]
+                }
+                "Permissions": [
+                    {
+                        "Principal": "arn:aws:quicksight:us-east-2:362764577362:namespace/default",
+                        "Actions": [
+                            "quicksight:DescribeDashboard",
+                            "quicksight:ListDashboardVersions",
+                            "quicksight:QueryDashboard"
+                        ]
+                    }
+                ]
+            }
+        )
+    except quicksight.exceptions.ResourceExistsException:
+        pass  # move on if already created
     quicksight.create_ingestion(
-        DataSetId = "8b37060b-d5ea-4950-b5a0-22e9ed3d2cd3",
+        DataSetId = DATASET_ID,
         IngestionId = datetime.utcnow().strftime("%Y%m%d-%H%M%S-%f"),
         AwsAccountId = ACCOUNT_ID
     )
