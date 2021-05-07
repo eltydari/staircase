@@ -5,6 +5,7 @@ import src.lambda_function as module
 class ModuleTests(TestCase):
 
     @patch.object(module, "log_new_invocation")
+    @patch.object(module, "report_invocation")
     def test_lambda_handler(self, invocation_mock):
         response = module.lambda_handler(MagicMock(), MagicMock())
         self.assertEqual("helloworld", response)
