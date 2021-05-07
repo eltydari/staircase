@@ -8,7 +8,7 @@ class ModuleTests(TestCase):
     @patch.object(module, "report_invocation")
     def test_lambda_handler(self, report_mock, invocation_mock):
         response = module.lambda_handler(MagicMock(), MagicMock())
-        self.assertEqual("helloworld", response)
+        self.assertEqual("byeworld", response)
         self.assertEqual(1, invocation_mock.call_count)
 
     @patch("builtins.open")
