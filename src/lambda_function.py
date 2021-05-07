@@ -13,7 +13,7 @@ INVOCATION_FILENAME = "logs/invocations.csv"
 def lambda_handler(event, context):
     log_new_invocation()
     report_invocation()
-    return "helloworld"
+    return "byeworld"
 
 
 def log_new_invocation():
