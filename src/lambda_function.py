@@ -52,7 +52,7 @@ def report_invocation():
         )
     except quicksight.exceptions.ResourceExistsException:
         pass  # move on if already created
-    sleep(.5)
+    time.sleep(.5)
     quicksight.create_ingestion(
         DataSetId = DATASET_ID,
         IngestionId = datetime.utcnow().strftime("%Y%m%d-%H%M%S-%f"),
